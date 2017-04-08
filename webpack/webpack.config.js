@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const common = {
   devtool: 'cheap-module-eval-source-map',
   entry: [path.join(__dirname, '../src/index.js'),
-  'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr&reload=true'],
+  'webpack-hot-middleware/client?path=http://127.0.0.1:8005/__webpack_hmr&reload=true'],
   output: {
     path: path.join(__dirname, '../dist/'),
     filename: 'bundle.js',
@@ -24,6 +24,10 @@ const common = {
      test: /\.js$/,
      loaders: ['babel-loader'],
      exclude: /node_modules/,
+   },
+   {
+      test: /bootstrap-sass\/assets\/javascripts\//,
+      loader: 'imports?jQuery=jquery',
    },
    {
     test: /\.js$/,
