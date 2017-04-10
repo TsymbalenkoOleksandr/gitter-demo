@@ -5,10 +5,8 @@ const initialState = {
       grantType: 'authorization_code'
 }
 
-
 export default function rootReducer(state = initialState, action) {
-  if (action.type == 'setCode') {
-  	console.log(Object.assign({}, state, action.payload ))
+  if (action.type === 'setCode') {
     return Object.assign({}, state, action.payload )
   } else {
    return state
