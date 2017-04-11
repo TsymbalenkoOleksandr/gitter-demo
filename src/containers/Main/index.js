@@ -3,6 +3,8 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as codeAction from '../../actions/codeAction'
+import logo from '../../img/logo.png'
+import './login.css'
 // import  realtimeClient from 'gitter-realtime-client'
 
 // let client = new realtimeClient.RealtimeClient({ token: process.env.GITTER_TOKEN })
@@ -54,7 +56,7 @@ class Main extends Component {
   }
 
   onClick() {
-    console.log(this.props)
+
   }
 
   render() {
@@ -64,9 +66,26 @@ class Main extends Component {
 
     return(
       <div>
-        fasfdasfs
-        <a href={url}>oauth</a>
-<button onClick={this.onClick.bind(this)}>sdfdf</button>
+        <nav className='navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top'>
+          <img className='logo logo_left' src={logo}
+          alt='logo' />
+        </nav>
+
+        <div className='login-page'>
+          <div className='form'> 
+            <form className='login-form' method='post'>
+              <a href={url}>oauth</a><br/>
+              <p className='message'>Not registered? <a href='#' className='message'>Create
+              an account</a></p>
+            </form>
+          </div>
+        </div>
+
+        <footer className='footer'>
+            <div className='container-fluid'>
+                <p className='text-muted'>sashkoi1234@gmail.com</p>
+           </div>
+        </footer>
       </div>
       )
   }
