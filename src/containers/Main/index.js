@@ -48,7 +48,12 @@ class Main extends Component {
               $.ajax(settings).done(response => {
                 this.props.codeAction.setCode({
                   access_token: response.access_token,
-                  token_type: response.token_type
+                  token_type: response.token_type,
+                  isAuth: true
+                })
+              }).fail(() => {
+                this.props.codeAction.failCode({
+                  isAuth: false
                 })
               });
             })
@@ -74,7 +79,7 @@ class Main extends Component {
         <div className='login-page'>
           <div className='form'> 
             <form className='login-form' method='post'>
-              <a href={url}>oauth</a><br/>
+              <a href={url} className='login-form-button'>enter</a><br/>
               <p className='message'>Not registered? <a href='#' className='message'>Create
               an account</a></p>
             </form>

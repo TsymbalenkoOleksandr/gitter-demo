@@ -1,8 +1,13 @@
 export function setCode(todo) {
   return {
     type: 'setCode',
-        isFetching: true,
-    isAuthenticated: false,
+    payload: todo
+  }
+}
+
+export function failCode(todo) {
+  return {
+    type: 'failCode',
     payload: todo
   }
 }
