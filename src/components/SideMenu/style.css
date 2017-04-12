@@ -1,0 +1,55 @@
+.main-sidebar {
+  background-color: #f9fafc;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  min-height: 100%;
+  width: 230px;
+}
+
+.sidebar {
+    padding-bottom: 10px;
+}
+
+.user-panel {
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 10px;
+}
+
+.user-panel > .info {
+    padding: 5px 5px 5px 15px;
+    line-height: 1;
+    position: absolute;
+    left: 55px;
+  }
+
+.sidebar-menu {
+  white-space: nowrap;
+  overflow: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-menu > li {
+  cursor: pointer;
+}
+
+  .sidebar-menu > li > a {
+    padding: 12px 5px 12px 15px;
+    display: block;
+    color: #444444;
+    font-weight: 600;
+  }
+
+  .sidebar-menu > li > a:hover,
+  .sidebar-menu > li > a:active {
+  text-decoration: none;
+}
+
+.sidebar-menu .active {
+  background: #f4f4f5;
+}

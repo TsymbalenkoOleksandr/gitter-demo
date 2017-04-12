@@ -3,6 +3,8 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as codeAction from '../../actions/codeAction'
+import SideMenu from '../../components/SideMenu/'
+import LoginPanel from '../../components/LoginPanel/'
 import logo from '../../img/logo.png'
 import './login.css'
 // import  realtimeClient from 'gitter-realtime-client'
@@ -70,21 +72,17 @@ class Main extends Component {
      + '&redirect_uri=' + this.props.redirectUri
 
     return(
-      <div>
-        <nav className='navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top'>
-          <img className='logo logo_left' src={logo}
-          alt='logo' />
-        </nav>
+      <div className='wrapper'>
+      <header className='main-header'>
+          <nav className='navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top'>
+            <img className='logo logo_left' src={logo}
+            alt='logo' />
+          </nav>
+        </header>
 
-        <div className='login-page'>
-          <div className='form'> 
-            <form className='login-form' method='post'>
-              <a href={url} className='login-form-button'>enter</a><br/>
-              <p className='message'>Not registered? <a href='#' className='message'>Create
-              an account</a></p>
-            </form>
-          </div>
-        </div>
+        <SideMenu></SideMenu>
+
+        <LoginPanel url={url}></LoginPanel>
 
         <footer className='footer'>
             <div className='container-fluid'>
