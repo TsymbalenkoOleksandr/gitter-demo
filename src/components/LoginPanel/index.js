@@ -15,6 +15,10 @@ export default class LoginPanel extends Component {
                 <a href={this.props.url} className='login-form-button'>enter</a><br/>
                 <p className='message'>Not registered? <a href='#' className='message'>Create
                 an account</a></p>
+                {(!this.props.query) ?
+                  <p className='error'>Unfortunatly you have trouble with entering</p> :
+                  <p></p>
+                }
               </form>
             </div>
           </div>

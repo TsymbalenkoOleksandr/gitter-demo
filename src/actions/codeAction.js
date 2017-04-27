@@ -5,9 +5,9 @@ export function setCode(todo) {
   }
 }
 
-export function failCode(todo) {
+export function setQueryState(todo) {
   return {
-    type: 'failCode',
+    type: 'setQueryState',
     payload: todo
   }
 }

@@ -3,14 +3,15 @@ const initialState = {
       redirectUri: 'http://127.0.0.1:8005',
       clientSecret: '25045a0e3c4a9997a7072b873b845b80a2e0b31c',
       grantType: 'authorization_code',
-      isAuth: false
+      isAuth: false,
+      queryState: true
 }
 
 export default function rootReducer(state = initialState, action) {
 	switch(action.type) {
 		case 'setCode': 
 		return Object.assign({}, state, action.payload )
-		case 'failCode':
+		case 'setQueryState':
 		return Object.assign({}, state, action.payload )
 		default:
 		return state

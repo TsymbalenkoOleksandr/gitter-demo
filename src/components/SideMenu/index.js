@@ -12,7 +12,7 @@ export default class SideMenu extends Component {
         <section className='sidebar'>
             <div className='user-panel'>
                 <div className='pull-left image'>
-                    <img src='resources/images/avatar.png' className='img-circle' alt='User Image' />
+                    <img src={this.props.avatar} className='img-circle' alt='User Image' />
                 </div>
                 <div className='pull-left info'>
                     {/* <p>${user.firstName} ${user.lastName}</p> */}

@@ -3,9 +3,8 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as codeAction from '../../actions/codeAction'
-import SideMenu from '../../components/SideMenu/'
-import LoginPanel from '../../components/LoginPanel/'
-import logo from '../../img/logo.png'
+import LoginPanel from '../../components/LoginPanel'
+import SideMenu from '../../components/SideMenu'
 import './login.css'
 // import  realtimeClient from 'gitter-realtime-client'
 
@@ -26,36 +25,63 @@ class Main extends Component {
       () => {
               // after get auth token, go back to get second refresh token
               //first set the data we should send
-              let data = {
-                client_id: this.props.clientId,
-                client_secret: this.props.clientSecret,
-                code: this.state.code,
-                redirect_uri: this.props.redirectUri,
-                grant_type: this.props.grantType
-              }
 
               //setting for ajax request
-              let settings = {
+              //actually this part of code I'll rewrite using 'generator' and 'fetch'
+              let setForToken = {
                 async: true,
-                crossDomain: true,
                 url: 'https://gitter.im/login/oauth/token',
                 method: 'POST',
                 headers: {
-                  'content-type': 'application/x-www-form-urlencoded',
-                  'cache-control': 'no-cache'
+                  'content-type': 'application/x-www-form-urlencoded'
                 },
-                data: data
+                data: {
+                  client_id: this.props.clientId,
+                  client_secret: this.props.clientSecret,
+                  code: this.state.code,
+                  redirect_uri: this.props.redirectUri,
+                  grant_type: this.props.grantType
+                }
               }
 
-              $.ajax(settings).done(response => {
+              $.ajax(setForToken).done(response => {
+
                 this.props.codeAction.setCode({
                   access_token: response.access_token,
                   token_type: response.token_type,
                   isAuth: true
                 })
+                this.props.codeAction.setQueryState({
+                  isAuth: true,
+                  queryState: true
+                })
+
+                let userData = {
+                  async: true,
+                  url: 'https://api.gitter.im/v1/user/me',
+                  method: 'GET',
+                  headers: {
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + this.props.access_token,
+                    'Accept': 'application/json'
+                  }
+                }
+
+                $.ajax(userData).done(response => {
+                  this.setState({
+                    avatar: response.avatarUrlSmall,
+                    displayName: response.displayName,
+                    id: response.id,
+                    username: response.username
+                  })
+                  console.log(response)
+                })
+                .fail(() => console.error('haven\'t data'))
+
               }).fail(() => {
-                this.props.codeAction.failCode({
-                  isAuth: false
+                this.props.codeAction.setQueryState({
+                  isAuth: false,
+                  queryState: false
                 })
               });
             })
@@ -73,17 +99,8 @@ class Main extends Component {
 
     return(
       <div className='wrapper'>
-      <header className='main-header'>
-          <nav className='navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top'>
-            <img className='logo logo_left' src={logo}
-            alt='logo' />
-          </nav>
-        </header>
-
-        <SideMenu></SideMenu>
-
-        <LoginPanel url={url}></LoginPanel>
-
+          {this.props.isAuth ? <SideMenu avatar={this.state.avatar}></SideMenu> : 
+          <LoginPanel url={url} query={this.props.queryState}></LoginPanel> }
         <footer className='footer'>
             <div className='container-fluid'>
                 <p className='text-muted'>sashkoi1234@gmail.com</p>
@@ -101,7 +118,9 @@ class Main extends Component {
       clientSecret: state.clientSecret,
       grantType: state.grantType,
       access_token: state.access_token,
-      token_type: state.token_type
+      token_type: state.token_type,
+      isAuth: state.isAuth,
+      queryState: state.queryState
     }
   }
 
